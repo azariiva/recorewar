@@ -6,7 +6,7 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 18:45:46 by fhilary           #+#    #+#             */
-/*   Updated: 2020/11/07 20:54:17 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/11/12 20:39:37 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,11 @@ static void	info_collect_help(t_parse *parser, int name)
 		if (ft_strlen(string->content) > PROG_NAME_LENGTH)
 			error(ERR_NAME_LEN, parser);
 		ft_strcpy(parser->name, string->content);
+		return ;
 	}
-	else
-	{
-		if ((string = ((t_token *)ft_elistpoptop(parser->tokens)))->type
-		!= STRING)
-			error(ERR_NO_NAME_OR_COMMENT, parser);
-		ft_strcpy(parser->comment, string->content);
-	}
+	if ((string = ((t_token *)ft_elistpoptop(parser->tokens)))->type != STRING)
+		error(ERR_NO_NAME_OR_COMMENT, parser);
+	ft_strcpy(parser->comment, string->content);
 }
 
 void		champ_info_collect(t_parse *parser)
@@ -80,6 +77,12 @@ void		mention_collect(t_parse *parser, t_token *token, int pos, int size)
 	lable->mentions[lable->size++] = pos;
 }
 
+static void	killmeplease(t_asop *op_name, t_dlist **tokens)
+{
+	ft_bzero(op_name, sizeof(t_asop));
+	op_name->name = FT_LSTCONT(t_token, *tokens)->content;
+}
+
 void		instruction_collect(t_parse *parser, t_dlist **tokens)
 {
 	t_asop	*asop;
@@ -87,8 +90,7 @@ void		instruction_collect(t_parse *parser, t_dlist **tokens)
 	int		arg_num;
 	int		pos;
 
-	ft_bzero(&op_name, sizeof(t_asop));
-	op_name.name = FT_LSTCONT(t_token, *tokens)->content;
+	killmeplease(&op_name, tokens);
 	if (!(asop = ft_htget(parser->op_htable, &op_name)))
 		collect_error(ERR_INV_INST, FT_LSTCONT(t_token, *tokens), parser);
 	pos = parser->position++;
