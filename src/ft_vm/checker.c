@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                       :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fhilary <fhilary@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/25 12:15:39 by rnugroho          #+#    #+#             */
-/*   Updated: 2020/11/08 17:48:24 by blinnea          ###   ########.fr       */
+/*   Created: 2020/11/12 20:28:20 by fhilary           #+#    #+#             */
+/*   Updated: 2020/11/12 20:28:21 by fhilary          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_vm.h"
 
-static void	vm_reset_livenbr(t_vm *vm)
+static void		vm_reset_livenbr(t_vm *vm)
 {
 	int			j;
 	t_process	*p;
@@ -27,7 +27,7 @@ static void	vm_reset_livenbr(t_vm *vm)
 	}
 }
 
-static int	vm_checker_processalive(t_vm *vm)
+static int		vm_checker_processalive(t_vm *vm)
 {
 	int			j;
 	int			palive_nbr;
@@ -53,7 +53,7 @@ static int	vm_checker_processalive(t_vm *vm)
 	return (palive_nbr);
 }
 
-static void	vm_process_kill(t_vm *vm)
+static void		vm_process_kill(t_vm *vm)
 {
 	t_process	*p;
 
@@ -67,7 +67,7 @@ static void	vm_process_kill(t_vm *vm)
 	}
 }
 
-int			checker(t_vm *vm)
+int				checker(t_vm *vm)
 {
 	if (g_cycles_to_die < 0)
 	{

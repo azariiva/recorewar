@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                         :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fhilary <fhilary@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/22 14:00:18 by rnugroho          #+#    #+#             */
-/*   Updated: 2020/11/08 16:41:28 by blinnea          ###   ########.fr       */
+/*   Created: 2020/11/12 20:29:02 by fhilary           #+#    #+#             */
+/*   Updated: 2020/11/12 20:29:19 by fhilary          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			error(int errnum, int status, char *name)
 	else if (errnum == CHAMP_MIN)
 		ft_printf_fd(2, "Error - Minimum number of players is 1\n");
 	else if (errnum == CHAMP_MAX)
-		ft_printf_fd(2, "Error - Maximum number of players is %d\n", MAX_PLAYERS);
+		ft_printf_fd(2, "Error - Max number of players is %d\n", MAX_PLAYERS);
 	else if (errnum == INVALID_FILE && name)
 		ft_printf_fd(2, "Error - File is invalid\n");
 	else if (errnum == INVALID_FILE)

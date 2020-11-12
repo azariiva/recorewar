@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_funk.c                                          :+:      :+:    :+:   */
+/*   free_funk.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fhilary <fhilary@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/03 11:28:14 by fpetras           #+#    #+#             */
-/*   Updated: 2020/11/12 18:33:50 by fhilary          ###   ########.fr       */
+/*   Created: 2020/11/12 20:29:51 by fhilary           #+#    #+#             */
+/*   Updated: 2020/11/12 20:29:57 by fhilary          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_vm.h"
-void	free_funk(t_vm *vm)
+
+void		free_funk(t_vm *vm)
 {
 	int i;
 
@@ -24,7 +25,7 @@ void	free_funk(t_vm *vm)
 	}
 }
 
-int		free_err(t_vm *vm, int max, int errnum, char *file)
+int			free_err(t_vm *vm, int max, int errnum, char *file)
 {
 	int i;
 

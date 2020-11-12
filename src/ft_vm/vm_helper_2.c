@@ -6,13 +6,13 @@
 /*   By: fhilary <fhilary@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/26 12:28:03 by fpetras           #+#    #+#             */
-/*   Updated: 2020/11/12 18:46:28 by fhilary          ###   ########.fr       */
+/*   Updated: 2020/11/12 20:29:39 by fhilary          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_vm.h"
 
-void	init_globals(void)
+void		init_globals(void)
 {
 	g_cycles = 0;
 	g_cycles_to = 0;
@@ -39,7 +39,7 @@ char		*big_end_convert(int value, int size)
 	return (res);
 }
 
-void	st_mem(int index, char *value, int champ, int size)
+void		st_mem(int index, char *value, int champ, int size)
 {
 	int	i;
 
@@ -55,7 +55,7 @@ void	st_mem(int index, char *value, int champ, int size)
 	}
 }
 
-int		ldd_memory(int index, int size)
+int			ldd_memory(int index, int size)
 {
 	int		i;
 	int		result;
@@ -78,7 +78,7 @@ int		ldd_memory(int index, int size)
 	return (result);
 }
 
-int		ld_funk(int index, int size, char *op)
+int			ld_funk(int index, int size, char *op)
 {
 	int		i;
 	int		result;

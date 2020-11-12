@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fhilary <fhilary@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 21:41:04 by rnugroho          #+#    #+#             */
-/*   Updated: 2020/11/12 20:17:17 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/11/12 20:27:11 by fhilary          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 int			print_usage(char **av, int status)
 {
-	ft_printf_fd(2, "usage: %s [options] [-n number] champion1.cor ...\n", av[0]);
+	ft_printf_fd(2, "usage: %s [options] [-n number] champion1.cor ...\n",
+	av[0]);
 	ft_printf_fd(2, "\n\033[1;37mOPTIONS\033[0m\n", 9);
 	ft_printf_fd(2, "       -dump  nbr_cycles  : ");
 	ft_printf_fd(2, "Dump the memory after nbr_cycles\n");
 	ft_printf_fd(2, "       -v N : ");
-	ft_printf_fd(2, "Verbosity levels, can be added together to enable several");
+	ft_printf_fd(2,
+	"Verbosity levels, can be added together to enable several");
 	ft_printf_fd(2, "\n                - 2  : Show cycles\n");
 	ft_printf_fd(2, "                - 4  : Show operations\n");
 	ft_printf_fd(2, "                - 8  : Show deaths\n");
