@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_asm.h                                           :+:      :+:    :+:   */
+/*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fhilary <fhilary@student.42.fr>            +#+  +:+       +#+        */
+/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 19:53:09 by blinnea           #+#    #+#             */
-/*   Updated: 2020/11/08 15:42:42 by fhilary          ###   ########.fr       */
+/*   Updated: 2020/11/12 20:27:47 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,6 @@ typedef enum	e_type
 	END_LINE,
 	END_FILE
 }				t_type;
-
-// static char	*g_typearr[] = {
-// 	"LABEL",
-// 	"INSTRUCTION",
-// 	"COMMAND_NAME",
-// 	"COMMAND_COMMENT",
-// 	"INDIRECT",
-// 	"INDIRECT_LABEL"
-// 	"REGISTER",
-// 	"SEP",
-// 	"DIRECT_LABEL",
-// 	"DIRECT",
-// 	"STRING",
-// 	"COMMAND",
-// 	"NEW_LINE",
-// 	"END_LINE",
-// 	"END_FILE"
-// };
 
 # define TSTR(T) (g_typearr[T])
 
