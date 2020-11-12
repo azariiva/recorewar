@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vm_decompiler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 15:59:39 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/05/06 03:53:22 by rnugroho         ###   ########.fr       */
+/*   Updated: 2020/11/12 20:13:51 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_vm.h"
 
-int			vm_checker_oc(t_op op)
+int			param_check(t_op op)
 {
 	int param[3];
 	int i;
@@ -38,7 +38,7 @@ int			vm_checker_oc(t_op op)
 	return (0);
 }
 
-void		vm_decompiler_param(t_process *p, t_op *op)
+void		decomp_param(t_process *p, t_op *op)
 {
 	int		i;
 	int		cursor;
@@ -60,17 +60,16 @@ void		vm_decompiler_param(t_process *p, t_op *op)
 			g_op_dict[op->opcode].d_size : 0;
 		cursor = p->offset + p->pc + op->size;
 		(cursor >= MEM_SIZE) ? cursor = cursor - MEM_SIZE : 0;
-		op->params[i].value = vm_ld_mem(cursor, op->params[i].size);
+		op->params[i].value = ldd_memory(cursor, op->params[i].size);
 		op->size += op->params[i].size;
 		i++;
 	}
 }
 
-int			vm_decompiler_op(t_vm *vm, t_process *p)
+int			decomp_op(t_vm *vm, t_process *p)
 {
 	const int cursor = g_memory[p->offset + p->pc];
 
-	(void)vm;
 	ft_bzero(&(p->op), sizeof(t_op));
 	p->cycles = g_cycles;
 	if (cursor < 0x01 || cursor > 0x10)

@@ -65,23 +65,23 @@ typedef enum	e_type
 	END_FILE
 }				t_type;
 
-static char	*g_typearr[] = {
-	"LABEL",
-	"INSTRUCTION",
-	"COMMAND_NAME",
-	"COMMAND_COMMENT",
-	"INDIRECT",
-	"INDIRECT_LABEL"
-	"REGISTER",
-	"SEP",
-	"DIRECT_LABEL",
-	"DIRECT",
-	"STRING",
-	"COMMAND",
-	"NEW_LINE",
-	"END_LINE",
-	"END_FILE"
-};
+// static char	*g_typearr[] = {
+// 	"LABEL",
+// 	"INSTRUCTION",
+// 	"COMMAND_NAME",
+// 	"COMMAND_COMMENT",
+// 	"INDIRECT",
+// 	"INDIRECT_LABEL"
+// 	"REGISTER",
+// 	"SEP",
+// 	"DIRECT_LABEL",
+// 	"DIRECT",
+// 	"STRING",
+// 	"COMMAND",
+// 	"NEW_LINE",
+// 	"END_LINE",
+// 	"END_FILE"
+// };
 
 # define TSTR(T) (g_typearr[T])
 

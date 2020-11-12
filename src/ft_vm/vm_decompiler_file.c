@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vm_decompiler_file.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fhilary <fhilary@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/22 20:42:42 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/05/07 17:05:34 by fpetras          ###   ########.fr       */
+/*   Updated: 2020/11/12 18:34:49 by fhilary          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_vm.h"
+#include <unistd.h>
+#include <fcntl.h>
 
 static int	vm_binary_to_int(unsigned char *bin, int size)
 {
@@ -83,7 +85,7 @@ static int	vm_read_binaries_2(char *file, t_champ *champ, unsigned char *buf)
 	return (error);
 }
 
-int			vm_read_binaries(char **paths, t_vm *vm)
+int			read_binaries(char **paths, t_vm *vm)
 {
 	int				i;
 	int				error;
@@ -95,7 +97,7 @@ int			vm_read_binaries(char **paths, t_vm *vm)
 	while (i < vm->champ_size)
 	{
 		if ((error = vm_read_binaries_2(paths[i], &champ, buf)) > 0)
-			return (vm_free_err(vm, i, error, paths[i]));
+			return (free_err(vm, i, error, paths[i]));
 		ft_memcpy(champ.op, buf, champ.header.prog_size + 1);
 		champ.op[champ.header.prog_size] = '\0';
 		champ.path = paths[i];

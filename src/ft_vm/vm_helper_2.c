@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vm_helper_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: fhilary <fhilary@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/26 12:28:03 by fpetras           #+#    #+#             */
-/*   Updated: 2018/05/06 08:46:13 by fpetras          ###   ########.fr       */
+/*   Updated: 2020/11/12 18:46:28 by fhilary          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_vm.h"
 
-void	vm_init_globals(void)
+void	init_globals(void)
 {
 	g_cycles = 0;
 	g_cycles_to = 0;
@@ -22,24 +22,24 @@ void	vm_init_globals(void)
 	ft_bzero(&g_memory_mark, MEM_SIZE);
 }
 
-char	*vm_to_big_endian(int value, int size)
+char		*big_end_convert(int value, int size)
 {
-	t_array	result;
-	int		i;
-	int		bits;
+	int			i;
+	int			bits;
+	static char	res[4];
 
+	ft_bzero(res, sizeof(res));
 	i = 0;
-	result = NEW_ARRAY(char);
-	bits = size * 8;
-	while (i <= bits - 8)
+	bits = size * 8 - 8;
+	while (i < size)
 	{
-		fta_append_char(&result, value >> (bits - 8 - i));
-		i = i + 8;
+		res[i] = value >> (bits - i * 8);
+		i++;
 	}
-	return (result.data);
+	return (res);
 }
 
-void	vm_st_mem(int index, char *value, int champ, int size)
+void	st_mem(int index, char *value, int champ, int size)
 {
 	int	i;
 
@@ -55,7 +55,7 @@ void	vm_st_mem(int index, char *value, int champ, int size)
 	}
 }
 
-int		vm_ld_mem(int index, int size)
+int		ldd_memory(int index, int size)
 {
 	int		i;
 	int		result;
@@ -78,7 +78,7 @@ int		vm_ld_mem(int index, int size)
 	return (result);
 }
 
-int		vm_ld(int index, int size, char *op)
+int		ld_funk(int index, int size, char *op)
 {
 	int		i;
 	int		result;

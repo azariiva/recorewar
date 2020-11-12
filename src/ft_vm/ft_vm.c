@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vm.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 21:38:33 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/05/06 09:09:49 by fpetras          ###   ########.fr       */
+/*   Updated: 2020/11/12 20:03:07 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_vm.h"
-#include "ft_vm_draw.h"
 
 static void	vm_load_champs(t_vm *vm)
 {
@@ -19,20 +18,20 @@ static void	vm_load_champs(t_vm *vm)
 	t_process	p;
 
 	i = -1;
-	vm_init_globals();
+	init_globals();
 	vm->winner = vm->champ_size - 1;
 	ft_bzero(&p, sizeof(t_process));
 	vm->process_index = 1;
 	fta_reserve(&(vm->processes), 3000000 * sizeof(t_process));
-	(vm->dump != 3) ? ft_printfln("Introducing contestants...") : 0;
+	(vm->dump != 3) ? ft_printf("Introducing contestants...\n") : 0;
 	while (++i < vm->champ_size)
 	{
 		if (vm->dump != 3)
-			ft_printfln("* Player %d, weighing %d %s, \"%s\" (\"%s\") !", i + 1,
+			ft_printf("* Player %d, weighing %d %s, \"%s\" (\"%s\") !\n", i + 1,
 			vm->champ[i].header.prog_size, (vm->champ[i].header.prog_size > 1) ?
 			"bytes" : "byte", vm->champ[i].header.prog_name,
 			vm->champ[i].header.comment);
-		vm_st_mem(i * MEM_SIZE / vm->champ_size, vm->champ[i].op, i,
+		st_mem(i * MEM_SIZE / vm->champ_size, vm->champ[i].op, i,
 			vm->champ[i].header.prog_size);
 		p.offset = i * MEM_SIZE / vm->champ_size;
 		p.champ = i;
@@ -91,23 +90,22 @@ int			main(int ac, char **av)
 
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.processes = processes;
-	if (ac < 2 || vm_options(av, &vm) == -1)
-		return (vm_print_usage(av, -1));
+	if (ac < 2 || options(av, &vm) == -1)
+		return (print_usage(av, -1));
 	if (vm_get_champions(av, &vm) == -1)
-		return (vm_error(vm.champ_size < 1 ? CHAMP_MIN : CHAMP_MAX, -1, NULL));
-	if (vm_read_binaries(vm.players, &vm) == -1)
+		return (error(vm.champ_size < 1 ? CHAMP_MIN : CHAMP_MAX, -1, NULL));
+	if (read_binaries(vm.players, &vm) == -1)
 		return (-1);
 	vm_load_champs(&vm);
-	while (vm_checker(&vm))
+	while (checker(&vm))
 	{
-		vm_executor(&vm);
-		if ((vm.dump && vm.cycles == g_cycles) ||
-			(vm.option_g[VISU_2] && vm_start_ncurses(&start, vm) == -1))
+		exec(&vm);
+		if ((vm.dump && vm.cycles == g_cycles))
 			break ;
 	}
 	(!vm.dump || g_cycles < vm.cycles) ?
-	ft_printfln("Contestant %d, \"%s\", has won !",
+	ft_printf("Contestant %d, \"%s\", has won !\n",
 		vm.winner + 1, vm.champ[vm.winner].header.prog_name) : 0;
-	vm_free(&vm);
+	free_funk(&vm);
 	return (0);
 }

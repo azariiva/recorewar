@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vm.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 21:39:11 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/05/07 16:59:11 by fpetras          ###   ########.fr       */
+/*   Updated: 2020/11/12 20:12:57 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include "libft.h"
 # include "op.h"
+
+# define EOC 0
+# define RED 1
+# define GREEN 2
 
 # define MALLOC			1
 # define CHAMP_MIN		2
@@ -26,8 +30,7 @@
 # define NO_CODE		8
 # define CODE_MAX		9
 
-# define VISU_1			0
-# define VISU_2			1
+# define VISU			0
 
 # define V_LVL_2		0
 # define V_LVL_4		1
@@ -78,7 +81,6 @@ typedef struct	s_vm
 	int			dump;
 	int			cycles;
 	int			option_v[4];
-	int			option_g[2];
 	int			opt_num;
 	int			check_nbr;
 	char		*players[MAX_PLAYERS + 1];
@@ -98,55 +100,46 @@ int				g_cycles_to_die;
 int				g_max_check;
 int				g_live_nbr;
 
-int				vm_options(char **av, t_vm *vm);
-int				vm_print_usage(char **av, int status);
-void			vm_init_globals(void);
+int				options(char **av, t_vm *vm);
+int				print_usage(char **av, int status);
+void			init_globals(void);
 
-int				vm_error(int errnum, int status, char *name);
+int				error(int errnum, int status, char *name);
 
-void			vm_free(t_vm *vm);
-int				vm_free_err(t_vm *vm, int max, int errnum, char *file);
+void			free_funk(t_vm *vm);
+int				free_err(t_vm *vm, int max, int errnum, char *file);
 
-int				vm_read_binaries(char **paths, t_vm *vm);
-void			vm_st_mem(int index, char *value, int champ, int size);
-int				vm_ld_mem(int index, int size);
-int				vm_ld(int index, int size, char *op);
+int				read_binaries(char **paths, t_vm *vm);
+void			st_mem(int index, char *value, int champ, int size);
+int				ldd_memory(int index, int size);
+int				ld_funk(int index, int size, char *op);
 
-void			vm_decompiler_param(t_process *p, t_op *op);
-int				vm_decompiler_op(t_vm *vm, t_process *p);
+void			decomp_param(t_process *p, t_op *op);
+int				decomp_op(t_vm *vm, t_process *p);
 
-int				vm_checker(t_vm *vm);
-int				vm_checker_livenbr(t_vm vm);
+int				checker(t_vm *vm);
 
-void			vm_executor(t_vm *vm);
+void			exec(t_vm *vm);
 
-void			vm_disassembler(t_vm vm);
+char			*big_end_convert(int value, int size);
+void			op_include(t_vm *vm, t_process *p);
 
-void			vm_print_memory(void);
-void			vm_print_memory_color(t_vm vm);
-void			vm_print_memory_cursor(t_vm vm);
-
-char			*vm_to_big_endian(int value, int size);
-void			vm_op_inc(t_vm *vm, t_process *p);
-
-int				vm_checker_oc(t_op op);
-void			vm_op_live(t_vm *vm, t_process *p);
-void			vm_op_ld(t_vm *vm, t_process *p);
-void			vm_op_st(t_vm *vm, t_process *p);
-void			vm_op_add(t_vm *vm, t_process *p);
-void			vm_op_sub(t_vm *vm, t_process *p);
-void			vm_op_and(t_vm *vm, t_process *p);
-void			vm_op_or(t_vm *vm, t_process *p);
-void			vm_op_xor(t_vm *vm, t_process *p);
-void			vm_op_zjmp(t_vm *vm, t_process *p);
-void			vm_op_ldi(t_vm *vm, t_process *p);
-void			vm_op_sti(t_vm *vm, t_process *p);
-void			vm_op_fork(t_vm *vm, t_process *p);
-void			vm_op_lld(t_vm *vm, t_process *p);
-void			vm_op_lldi(t_vm *vm, t_process *p);
-void			vm_op_lfork(t_vm *vm, t_process *p);
-void			vm_op_aff(t_vm *vm, t_process *p);
-
+int				param_check(t_op op);
+void			live_op(t_vm *vm, t_process *p);
+void			ld_op(t_vm *vm, t_process *p);
+void			st_op(t_vm *vm, t_process *p);
+void			add_op(t_vm *vm, t_process *p);
+void			sub_op(t_vm *vm, t_process *p);
+void			and_op(t_vm *vm, t_process *p);
+void			or_op(t_vm *vm, t_process *p);
+void			xor_op(t_vm *vm, t_process *p);
+void			zjmp_op(t_vm *vm, t_process *p);
+void			ldi_op(t_vm *vm, t_process *p);
+void			sti_op(t_vm *vm, t_process *p);
+void			fork_op(t_vm *vm, t_process *p);
+void			lld_op(t_vm *vm, t_process *p);
+void			lldi_op(t_vm *vm, t_process *p);
+void			lfork_op(t_vm *vm, t_process *p);
 void			vm_op_print(t_process p);
 void			vm_live_print(t_process p);
 void			vm_ld_print(t_process p);
@@ -165,13 +158,13 @@ void			vm_lldi_print(t_process p);
 void			vm_lfork_print(t_process p);
 void			vm_aff_print(t_process p);
 
-int				ft_init_param(t_process *p, int i);
-int				ft_cursor(t_process *p, int param1, int param2, int i);
+int				init_p(t_process *p, int i);
+int				cursor_(t_process *p, int param1, int param2, int i);
 
-int				vm_valid_arg(char *arg, t_vm *vm);
-int				vm_valid_verbosity_lvl(int v);
-void			vm_set_v_lvl(int v, t_vm *vm);
-int				ft_isnumber(char *str);
+int				check_valid_arg(char *arg, t_vm *vm);
+int				check_val_verb(int v);
+void			set_v(int v, t_vm *vm);
+int				isnumber(char *str);
 int				ft_abs(int i);
 
 typedef struct	s_op_dict
@@ -190,52 +183,52 @@ typedef struct	s_op_dict
 
 static	t_op_dict g_op_dict[17] = {
 	{ .name = "\0", .opcode = 0x00, .d_size = 0, .param_c = 0, .is_oc = 0,
-		{0, 0, 0}, &vm_op_inc, &vm_op_print, .is_car = 0, .cycles = 0},
+		{0, 0, 0}, &op_include, &vm_op_print, .is_car = 0, .cycles = 0},
 	{ .name = "live", .opcode = 0x01, .d_size = 4, .param_c = 1, .is_oc = 0,
-		{T_DIR, 0, 0}, &vm_op_live, &vm_live_print, .is_car = 0, .cycles = 10},
+		{T_DIR, 0, 0}, &live_op, &vm_live_print, .is_car = 0, .cycles = 10},
 	{ .name = "ld", .opcode = 0x02, .d_size = 4, .param_c = 2, .is_oc = 1,
 		{T_DIR | T_IND, T_REG, 0},
-		&vm_op_ld, &vm_ld_print, .is_car = 1, .cycles = 5},
+		&ld_op, &vm_ld_print, .is_car = 1, .cycles = 5},
 	{ .name = "st", .opcode = 0x03, .d_size = 4, .param_c = 2, .is_oc = 1,
 		{T_REG, T_REG | T_IND, 0},
-		&vm_op_st, &vm_st_print, .is_car = 0, .cycles = 5},
+		&st_op, &vm_st_print, .is_car = 0, .cycles = 5},
 	{ .name = "add", .opcode = 0x04, .d_size = 4, .param_c = 3, .is_oc = 1,
 		{T_REG, T_REG, T_REG},
-		&vm_op_add, &vm_add_print, .is_car = 1, .cycles = 10},
+		&add_op, &vm_add_print, .is_car = 1, .cycles = 10},
 	{ .name = "sub", .opcode = 0x05, .d_size = 4, .param_c = 3, .is_oc = 1,
 		{T_REG, T_REG, T_REG},
-		&vm_op_sub, &vm_sub_print, .is_car = 1, .cycles = 10},
+		&sub_op, &vm_sub_print, .is_car = 1, .cycles = 10},
 	{ .name = "and", .opcode = 0x06, .d_size = 4, .param_c = 3, .is_oc = 1,
 		{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
-		&vm_op_and, &vm_and_print, .is_car = 1, .cycles = 6},
+		&and_op, &vm_and_print, .is_car = 1, .cycles = 6},
 	{ .name = "or", .opcode = 0x07, .d_size = 4, .param_c = 3, .is_oc = 1,
 		{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
-		&vm_op_or, &vm_or_print, .is_car = 1, .cycles = 6},
+		&or_op, &vm_or_print, .is_car = 1, .cycles = 6},
 	{ .name = "xor", .opcode = 0x08, .d_size = 4, .param_c = 3, .is_oc = 1,
 		{T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
-		&vm_op_xor, &vm_xor_print, .is_car = 1, .cycles = 6},
+		&xor_op, &vm_xor_print, .is_car = 1, .cycles = 6},
 	{ .name = "zjmp", .opcode = 0x09, .d_size = 2, .param_c = 1, .is_oc = 0,
 		{T_DIR, 0, 0},
-		&vm_op_zjmp, &vm_zjmp_print, .is_car = 0, .cycles = 20},
+		&zjmp_op, &vm_zjmp_print, .is_car = 0, .cycles = 20},
 	{ .name = "ldi", .opcode = 0x0a, .d_size = 2, .param_c = 3, .is_oc = 1,
 		{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
-		&vm_op_ldi, &vm_ldi_print, .is_car = 0, .cycles = 25},
+		&ldi_op, &vm_ldi_print, .is_car = 0, .cycles = 25},
 	{ .name = "sti", .opcode = 0x0b, .d_size = 2, .param_c = 3, .is_oc = 1,
 		{T_REG, T_REG | T_IND | T_DIR, T_DIR | T_REG},
-		&vm_op_sti, &vm_sti_print, .is_car = 0, .cycles = 25},
+		&sti_op, &vm_sti_print, .is_car = 0, .cycles = 25},
 	{ .name = "fork", .opcode = 0x0c, .d_size = 2, .param_c = 1, .is_oc = 0,
-		{T_DIR, 0, 0}, &vm_op_fork, &vm_fork_print, .is_car = 0, .cycles = 800},
+		{T_DIR, 0, 0}, &fork_op, &vm_fork_print, .is_car = 0, .cycles = 800},
 	{ .name = "lld", .opcode = 0x0d, .d_size = 4, .param_c = 2, .is_oc = 1,
 		{T_IND | T_DIR, T_REG, 0},
-		&vm_op_lld, &vm_lld_print, .is_car = 1, .cycles = 10},
+		&lld_op, &vm_lld_print, .is_car = 1, .cycles = 10},
 	{ .name = "lldi", .opcode = 0x0e, .d_size = 2, .param_c = 3, .is_oc = 1,
 		{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
-		&vm_op_lldi, &vm_lldi_print, .is_car = 0, .cycles = 50},
+		&lldi_op, &vm_lldi_print, .is_car = 0, .cycles = 50},
 	{ .name = "lfork", .opcode = 0x0f, .d_size = 2, .param_c = 1, .is_oc = 0,
 		{T_DIR, 0, 0},
-		vm_op_lfork, &vm_lfork_print, .is_car = 0, .cycles = 1000},
+		lfork_op, &vm_lfork_print, .is_car = 0, .cycles = 1000},
 	{ .name = "aff", .opcode = 0x10, .d_size = 4, .param_c = 1, .is_oc = 1,
-		{T_REG, 0, 0}, &vm_op_aff, &vm_aff_print, .is_car = 0, .cycles = 2}
+		{T_REG, 0, 0}, &op_include, &vm_aff_print, .is_car = 0, .cycles = 2}
 };
 
 #endif
