@@ -6,28 +6,28 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 16:16:41 by blinnea           #+#    #+#             */
-/*   Updated: 2020/11/12 20:42:26 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/11/12 20:47:10 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft_memory.h"
 #include <stddef.h>
 
-static inline void	assign(long int bp, ft_op cccc)
+static inline void	assign(long int bp, t_fop cccc)
 {
-	((ft_op *)bp)[0] = cccc;
-	((ft_op *)bp)[1] = cccc;
-	((ft_op *)bp)[2] = cccc;
-	((ft_op *)bp)[3] = cccc;
-	((ft_op *)bp)[4] = cccc;
-	((ft_op *)bp)[5] = cccc;
-	((ft_op *)bp)[6] = cccc;
-	((ft_op *)bp)[7] = cccc;
+	((t_fop *)bp)[0] = cccc;
+	((t_fop *)bp)[1] = cccc;
+	((t_fop *)bp)[2] = cccc;
+	((t_fop *)bp)[3] = cccc;
+	((t_fop *)bp)[4] = cccc;
+	((t_fop *)bp)[5] = cccc;
+	((t_fop *)bp)[6] = cccc;
+	((t_fop *)bp)[7] = cccc;
 }
 
-static ft_op		init_cccc(int c)
+static t_fop		init_cccc(int c)
 {
-	ft_op	cccc;
+	t_fop	cccc;
 
 	cccc = (unsigned char)c;
 	cccc |= cccc << 8;
@@ -37,7 +37,7 @@ static ft_op		init_cccc(int c)
 	return (cccc);
 }
 
-static inline void	middle(ft_op cccc, size_t *len, long int *bp)
+static inline void	middle(t_fop cccc, size_t *len, long int *bp)
 {
 	size_t register	xlen;
 
@@ -52,7 +52,7 @@ static inline void	middle(ft_op cccc, size_t *len, long int *bp)
 	xlen = (*len) / OPSIZ;
 	while (xlen > 0)
 	{
-		((ft_op *)(*bp))[0] = cccc;
+		((t_fop *)(*bp))[0] = cccc;
 		(*bp) += OPSIZ;
 		xlen--;
 	}

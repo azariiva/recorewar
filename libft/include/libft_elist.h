@@ -6,16 +6,16 @@
 /*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 17:46:05 by blinnea           #+#    #+#             */
-/*   Updated: 2020/11/05 19:12:45 by blinnea          ###   ########.fr       */
+/*   Updated: 2020/11/12 20:54:03 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_ELIST
+#ifndef LIBFT_ELIST_H
+
+# define LIBFT_ELIST_H
 
 # include "libft_dlist.h"
 # include <stddef.h>
-
-# define LIBFT_ELIST
 
 /*
 ** t_elist combines all functionality of t_queue and t_list with improved

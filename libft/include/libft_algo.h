@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_algo.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fhilary <fhilary@student.42.fr>            +#+  +:+       +#+        */
+/*   By: blinnea <blinnea@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 15:11:02 by blinnea           #+#    #+#             */
-/*   Updated: 2020/11/03 17:29:06 by fhilary          ###   ########.fr       */
+/*   Updated: 2020/11/12 20:44:19 by blinnea          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,6 @@
 void			ft_swap(void *a, void *b, size_t esz);
 
 # define FT_SWAP(a, b) (ft_swap((void *)&a, (void *)&b, sizeof(a)))
-
-/*
-** > tab is array of any type
-** > esz is size of element of array
-** > sz is actual size of array in elements
-** > cmp is comparator, that returns numbers greater than 0 if a > b or numbers
-** less than 0 if a < b or 0 if a == b
-*/
-void			ft_quicksort(char*const tab, const size_t esz, const size_t sz,
-int (*cmp)(const void *, const void *));
-
-# define FT_QUICKSORT(tab, sz, cmp) (ft_quicksort((char *)tab, sizeof(*tab), sz, cmp))
 
 /*
 ** I've used this reference shorturl.at/adkmw
